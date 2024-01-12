@@ -97,7 +97,9 @@ const SpinnerSettings = () => {
             required
           />
           <br />
-          <button type="submit">Add</button>
+          <button type="submit" style={{ color: "green" }}>
+            +
+          </button>
         </form>
       </div>
       <div
@@ -162,6 +164,9 @@ const SpinnerSettings = () => {
             })}
           </div>
         </div>
+      </div>
+      <div style={{ marginTop: 50, textAlign: "center" }}>
+        <button style={{ background: "green", color: "white" }}>Spin!</button>
       </div>
     </div>
   );
