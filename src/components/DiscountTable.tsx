@@ -49,6 +49,7 @@ const DiscountTable = () => {
           display: "grid",
           gridTemplateColumns: "4fr 2fr 1fr",
           //   width: 360,
+          color: "#213547",
           fontSize: "0.95remrem",
         }}
       >

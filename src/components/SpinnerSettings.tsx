@@ -107,6 +107,7 @@ const SpinnerSettings = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          color: "#213547",
         }}
       >
         <div style={{ display: "flex", gap: "8px" }}>
