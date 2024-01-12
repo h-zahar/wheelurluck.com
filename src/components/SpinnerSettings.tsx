@@ -93,7 +93,7 @@ const SpinnerSettings = () => {
             style={{
               cursor: "pointer",
             }}
-            defaultValue={"blue"}
+            defaultValue="#5896c6"
             required
           />
           <br />
