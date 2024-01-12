@@ -73,7 +73,7 @@ const SpinnerSettings = () => {
           />
           <select
             id="discountType"
-            defaultValue={1}
+            defaultValue={2}
             style={{ padding: "0 10px" }}
             required
           >
