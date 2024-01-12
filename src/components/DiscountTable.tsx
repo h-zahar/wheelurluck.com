@@ -4,6 +4,7 @@ interface DiscountInfo {
   id: string;
   customerEmail: string;
   customerName: string;
+  discountId: string;
   discountValue: number;
   discountType: string;
   discountColor?: string;
@@ -12,20 +13,31 @@ interface DiscountInfo {
 const DiscountTable = () => {
   const [discountInfo, setDiscountInfo] = useState<DiscountInfo[] | []>([
     {
-      id: "123",
-      customerEmail: "khb",
-      customerName: "akhsbd",
+      id: "321",
+      customerEmail: "jdoe@jom.com",
+      customerName: "John Doe",
+      discountId: "123",
       discountValue: 40,
       discountType: "Fixed",
       discountColor: "red",
     },
     {
-      id: "132",
-      customerEmail: "khb",
-      customerName: "akhsbd",
+      id: "231",
+      customerEmail: "alexgood@gmail.com",
+      customerName: "Alex Good",
+      discountId: "132",
       discountValue: 80,
       discountType: "Fixed",
-      discountColor: "red",
+      discountColor: "blue",
+    },
+    {
+      id: "131",
+      customerEmail: "john@hoiburg.com",
+      customerName: "Jonathan Hoiburg",
+      discountId: "142",
+      discountValue: 90,
+      discountType: "%",
+      discountColor: "green",
     },
   ]);
 
@@ -47,7 +59,7 @@ const DiscountTable = () => {
             padding: "15px 2px",
           }}
         >
-          {"Name"}
+          {"Email"}
         </div>
         <div
           style={{
@@ -56,7 +68,7 @@ const DiscountTable = () => {
             padding: "15px 2px",
           }}
         >
-          {"Email"}
+          {"Name"}
         </div>
         <div
           style={{
@@ -78,8 +90,16 @@ const DiscountTable = () => {
                 <div
                   style={
                     d === "customerName"
-                      ? { background: "#efefef", padding: "8px 2px" }
-                      : { background: "#cccccc", padding: "8px 2px" }
+                      ? {
+                          background: "#efefef",
+                          padding: "8px 20px",
+                          textAlign: "start",
+                        }
+                      : {
+                          background: "#cccccc",
+                          padding: "8px 30px",
+                          textAlign: "start",
+                        }
                   }
                 >
                   {discount[d]}
