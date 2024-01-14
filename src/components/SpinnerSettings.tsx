@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Wheel from "./Wheel";
 
 interface SpinnerInfo {
   id: string;
@@ -54,6 +55,30 @@ const SpinnerSettings = () => {
       discountColor: target.discountColor.value,
     };
     setSpinnerInfo([...spinnernfo, data]);
+  };
+
+  const segments = [
+    "better luck next time",
+    "won 70",
+    "won 10",
+    "better luck next time",
+    "won 2",
+    "won uber pass",
+    "better luck next time",
+    "won a voucher",
+  ];
+  const segColors = [
+    "#EE4040",
+    "#F0CF50",
+    "#815CD1",
+    "#3DA5E0",
+    "#34A24F",
+    "#F9AA1F",
+    "#EC3F3F",
+    "#FF9000",
+  ];
+  const onFinished = (winner: string) => {
+    console.log(winner);
   };
 
   return (
@@ -169,6 +194,22 @@ const SpinnerSettings = () => {
       <div style={{ marginTop: 50, textAlign: "center" }}>
         <button style={{ background: "green", color: "white" }}>Spin!</button>
       </div>
+      {/* <div>
+        <Wheel
+          segments={segments}
+          segColors={segColors}
+          winningSegment={null}
+          onFinished={(winner: string) => onFinished(winner)}
+          primaryColor="black"
+          contrastColor="white"
+          buttonText="Spin"
+          isOnlyOnce={false}
+          size={290}
+          upDuration={100}
+          downDuration={1000}
+          fontFamily="Arial"
+        />
+      </div> */}
     </div>
   );
 };
