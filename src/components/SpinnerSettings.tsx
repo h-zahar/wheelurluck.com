@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Wheel from "./Wheel";
+import OptInForm from "./OptInForm";
 
 interface SpinnerInfo {
   id: string;
@@ -7,6 +8,13 @@ interface SpinnerInfo {
   discountType: string;
   discountColor: string;
 }
+
+interface CurrentCustomer {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
+
 interface CustomElements extends HTMLFormControlsCollection {
   discountValue: HTMLInputElement;
   discountType: HTMLInputElement;
@@ -16,7 +24,29 @@ interface CustomForm extends HTMLFormElement {
   readonly elements: CustomElements;
 }
 
-const SpinnerSettings = () => {
+interface CurrentCustomer {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
+
+interface DiscountInfo {
+  id: string;
+  customerEmail: string;
+  customerName: string;
+  discountId: string;
+  discountValue: number;
+  discountType: string;
+  discountColor?: string;
+}
+
+const SpinnerSettings = ({
+  discountTable,
+  setDiscountTable,
+}: {
+  discountTable: DiscountInfo[];
+  setDiscountTable: (discount: DiscountInfo[]) => void;
+}) => {
   const [spinnernfo, setSpinnerInfo] = useState<SpinnerInfo[] | []>([
     {
       id: "123",
@@ -57,9 +87,8 @@ const SpinnerSettings = () => {
     setSpinnerInfo([...spinnernfo, data]);
   };
 
-  const onFinished = (winner: string) => {
-    alert(winner);
-  };
+  // const [isWheelOpen, setIsWheelOpen] = useState(false);
+  const [isOptInFormOpen, setIsOptInFormOpen] = useState(false);
 
   return (
     <div>
@@ -172,28 +201,23 @@ const SpinnerSettings = () => {
         </div>
       </div>
       <div style={{ marginTop: 50, textAlign: "center" }}>
-        <button id="spin" style={{ background: "green", color: "white" }}>
+        <button
+          style={{ background: "green", color: "white" }}
+          onClick={() => {
+            setIsOptInFormOpen(true);
+          }}
+        >
           Spin!
         </button>
       </div>
-      {/* <div style={{ marginTop: "100px" }}>
-        <Wheel
-          segments={spinnernfo.map(
-            (spinner) => spinner.discountValue + " " + spinner.discountType
-          )}
-          segColors={spinnernfo.map((spinner) => spinner.discountColor)}
-          winningSegment={null}
-          onFinished={(winner: string) => onFinished(winner)}
-          primaryColor=""
-          contrastColor="white"
-          buttonText=""
-          isOnlyOnce={false}
-          size={290}
-          upDuration={100}
-          downDuration={1000}
-          fontFamily="Arial"
-        />
-      </div> */}
+      <OptInForm
+        isOpen={isOptInFormOpen}
+        setIsOpen={setIsOptInFormOpen}
+        spinnernfo={spinnernfo}
+        setSpinnerInfo={setSpinnerInfo}
+        discountTable={discountTable}
+        setDiscountTable={setDiscountTable}
+      />
     </div>
   );
 };

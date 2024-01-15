@@ -37,3 +37,26 @@
 .input-check {
   accent-color: green;
 }
+
+.opt-in-container {
+  animation: anim 0.8s;
+}
+
+#fix-img-width {
+  animation: anim2 5.6s;
+}
+
+#fix-content-width {
+  animation: anim3 5.6s;
+}
+
+@keyframes anim {
+  from {
+    min-width: 0px;
+    max-width: 0px;
+  }
+  to {
+    min-width: 30vw;
+    max-width: 55vw;
+  }
+}

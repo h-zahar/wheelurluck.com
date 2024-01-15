@@ -10,37 +10,13 @@ interface DiscountInfo {
   discountColor?: string;
 }
 
-const DiscountTable = () => {
-  const [discountInfo, setDiscountInfo] = useState<DiscountInfo[] | []>([
-    {
-      id: "321",
-      customerEmail: "jdoe@jom.com",
-      customerName: "John Doe",
-      discountId: "123",
-      discountValue: 40,
-      discountType: "Fixed",
-      discountColor: "red",
-    },
-    {
-      id: "231",
-      customerEmail: "alexgood@gmail.com",
-      customerName: "Alex Good",
-      discountId: "132",
-      discountValue: 80,
-      discountType: "Fixed",
-      discountColor: "blue",
-    },
-    {
-      id: "131",
-      customerEmail: "john@hoiburg.com",
-      customerName: "Jonathan Hoiburg",
-      discountId: "142",
-      discountValue: 90,
-      discountType: "%",
-      discountColor: "green",
-    },
-  ]);
-
+const DiscountTable = ({
+  discountInfo,
+  setDiscountInfo,
+}: {
+  discountInfo: DiscountInfo[];
+  setDiscountInfo: (discount: DiscountInfo[]) => void;
+}) => {
   return (
     <div>
       <h2 style={{ fontWeight: "normal" }}>Email list</h2>

@@ -1,6 +1,23 @@
 import { useEffect, useState } from "react";
 
+interface CurrentCustomer {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
+interface DiscountTable {
+  id: string;
+  customerEmail: string;
+  customerName: string;
+  discountId: string;
+  discountValue: number;
+  discountType: string;
+  discountColor?: string;
+}
+
 const Wheel = ({
+  // isOpen,
+  // setIsOpen,
   segments,
   segColors,
   winningSegment,
@@ -13,11 +30,20 @@ const Wheel = ({
   upDuration = 100,
   downDuration = 1000,
   fontFamily = "proxima-nova",
+  isSubmitted,
+  currentCustomer,
+  setDiscountTable,
+  discountTable,
 }: {
+  // isOpen: boolean;
+  // setIsOpen: (isOpen: boolean) => void;
   segments: string[];
   segColors: string[];
   winningSegment: string | null;
-  onFinished: (winner: string) => void;
+  onFinished: (
+    winner: string,
+    currentCustomer: CurrentCustomer | Record<string, never>
+  ) => void;
   primaryColor: string;
   contrastColor: string;
   buttonText: string;
@@ -26,7 +52,12 @@ const Wheel = ({
   upDuration: number;
   downDuration: number;
   fontFamily: string;
+  isSubmitted: boolean;
+  currentCustomer: CurrentCustomer | Record<string, never>;
+  setDiscountTable: (discount: DiscountTable[]) => void;
+  discountTable: DiscountTable[];
 }) => {
+  // if (!isOpen) return <></>;
   let currentSegment = "";
   let isStarted = false;
   const [isFinished, setFinished] = useState(false);
@@ -47,7 +78,8 @@ const Wheel = ({
     setTimeout(() => {
       window.scrollTo(0, 1);
     }, 0);
-  }, [segments.length, segColors.length]);
+  }, [segments.length, segColors.length, currentCustomer?.id]);
+
   const wheelInit = () => {
     initCanvas();
     wheelDraw();
@@ -110,7 +142,17 @@ const Wheel = ({
     while (angleCurrent >= Math.PI * 2) angleCurrent -= Math.PI * 2;
     if (finished) {
       setFinished(true);
-      onFinished(currentSegment);
+      // onFinished(currentSegment, currentCustomer);
+      const temp = [
+        ...discountTable,
+        {
+          ...currentCustomer,
+          discountId: new Date().getTime().toString(),
+          discountValue: Number(currentSegment.split(" ")[0]),
+          discountType: currentSegment.split(" ")[1],
+        },
+      ];
+      setDiscountTable(temp);
       clearInterval(timerHandle);
       timerHandle = 0;
       angleDelta = 0;
@@ -223,16 +265,15 @@ const Wheel = ({
     const ctx = canvasContext;
     ctx.clearRect(0, 0, 1000, 800);
   };
-
   return (
     <div id="wheel">
       <canvas
         id="canvas"
-        width="598"
-        height="598"
+        width="590"
+        height="590"
         style={{
           pointerEvents: isFinished && isOnlyOnce ? "none" : "auto",
-          transform: "rotate(45deg)",
+          transform: `${!isSubmitted ? "translateX(-55%) " : ""}rotate(45deg)`,
           // border: "1px solid black",
           borderRadius: "50%",
         }}
