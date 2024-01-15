@@ -58,7 +58,7 @@ const SpinnerSettings = () => {
   };
 
   const onFinished = (winner: string) => {
-    console.log(winner);
+    alert(winner);
   };
 
   return (
@@ -176,7 +176,7 @@ const SpinnerSettings = () => {
           Spin!
         </button>
       </div>
-      {/* <div>
+      {/* <div style={{ marginTop: "100px" }}>
         <Wheel
           segments={spinnernfo.map(
             (spinner) => spinner.discountValue + " " + spinner.discountType
@@ -184,9 +184,9 @@ const SpinnerSettings = () => {
           segColors={spinnernfo.map((spinner) => spinner.discountColor)}
           winningSegment={null}
           onFinished={(winner: string) => onFinished(winner)}
-          primaryColor="black"
+          primaryColor=""
           contrastColor="white"
-          buttonText="Spin"
+          buttonText=""
           isOnlyOnce={false}
           size={290}
           upDuration={100}
