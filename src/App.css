@@ -33,3 +33,7 @@
   transform: scale(1.2);
   transition: 0.4s all;
 } */
+
+.input-check {
+  accent-color: green;
+}
