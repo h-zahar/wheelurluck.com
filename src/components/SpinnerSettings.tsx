@@ -196,8 +196,10 @@ const SpinnerSettings = () => {
       </div>
       {/* <div>
         <Wheel
-          segments={segments}
-          segColors={segColors}
+          segments={spinnernfo.map(
+            (spinner) => spinner.discountValue + " " + spinner.discountType
+          )}
+          segColors={spinnernfo.map((spinner) => spinner.discountColor)}
           winningSegment={null}
           onFinished={(winner: string) => onFinished(winner)}
           primaryColor="black"
