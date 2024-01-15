@@ -155,8 +155,8 @@ const Wheel = ({
     let lastAngle = angleCurrent;
     const len = segments.length;
     const PI2 = Math.PI * 2;
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = primaryColor;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "white";
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
     ctx.font = "1em " + fontFamily;
@@ -170,7 +170,8 @@ const Wheel = ({
     ctx.beginPath();
     ctx.arc(centerX, centerY, 50, 0, PI2, false);
     ctx.closePath();
-    ctx.fillStyle = primaryColor;
+    ctx.fillStyle =
+      segColors[segments.findIndex((segment) => segment === currentSegment)];
     ctx.lineWidth = 10;
     ctx.strokeStyle = contrastColor;
     ctx.fill();
@@ -227,9 +228,12 @@ const Wheel = ({
       <canvas
         id="canvas"
         width="598"
-        height="700"
+        height="598"
         style={{
           pointerEvents: isFinished && isOnlyOnce ? "none" : "auto",
+          transform: "rotate(45deg)",
+          // border: "1px solid black",
+          borderRadius: "50%",
         }}
       />
     </div>
