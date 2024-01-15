@@ -13,6 +13,19 @@ const Wheel = ({
   upDuration = 100,
   downDuration = 1000,
   fontFamily = "proxima-nova",
+}: {
+  segments: string[];
+  segColors: string[];
+  winningSegment: string | null;
+  onFinished: (winner: string) => void;
+  primaryColor: string;
+  contrastColor: string;
+  buttonText: string;
+  isOnlyOnce: boolean;
+  size: number;
+  upDuration: number;
+  downDuration: number;
+  fontFamily: string;
 }) => {
   let currentSegment = "";
   let isStarted = false;
@@ -21,8 +34,8 @@ const Wheel = ({
   const timerDelay = segments.length;
   let angleCurrent = 0;
   let angleDelta = 0;
-  let canvasContext = null;
-  let maxSpeed = Math.PI / `${segments.length}`;
+  let canvasContext: CanvasRenderingContext2D = null!;
+  let maxSpeed = Math.PI / segments.length;
   const upTime = segments.length * upDuration;
   const downTime = segments.length * downDuration;
   let spinStart = 0;
@@ -34,24 +47,25 @@ const Wheel = ({
     setTimeout(() => {
       window.scrollTo(0, 1);
     }, 0);
-  }, []);
+  }, [segments.length, segColors.length]);
   const wheelInit = () => {
     initCanvas();
     wheelDraw();
   };
 
   const initCanvas = () => {
-    let canvas = document.getElementById("canvas");
+    let canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    const startSpin = document.getElementById("spin");
     console.log(navigator);
     if (navigator.userAgent.indexOf("MSIE") !== -1) {
       canvas = document.createElement("canvas");
-      canvas.setAttribute("width", 1000);
-      canvas.setAttribute("height", 600);
+      canvas.setAttribute("width", "1000");
+      canvas.setAttribute("height", "600");
       canvas.setAttribute("id", "canvas");
-      document.getElementById("wheel").appendChild(canvas);
+      document?.getElementById("wheel")?.appendChild(canvas);
     }
-    canvas.addEventListener("click", spin, false);
-    canvasContext = canvas.getContext("2d");
+    startSpin?.addEventListener("click", spin, false);
+    canvasContext = canvas.getContext("2d")!;
   };
   const spin = () => {
     isStarted = true;
@@ -115,7 +129,7 @@ const Wheel = ({
     drawNeedle();
   };
 
-  const drawSegment = (key, lastAngle, angle) => {
+  const drawSegment = (key: number, lastAngle: number, angle: number) => {
     const ctx = canvasContext;
     const value = segments[key];
     ctx.save();
@@ -182,7 +196,7 @@ const Wheel = ({
     const ctx = canvasContext;
     ctx.lineWidth = 1;
     ctx.strokeStyle = contrastColor;
-    ctx.fileStyle = contrastColor;
+    ctx.fillStyle = contrastColor;
     ctx.beginPath();
     ctx.moveTo(centerX + 20, centerY - 50);
     ctx.lineTo(centerX - 20, centerY - 50);
@@ -207,12 +221,13 @@ const Wheel = ({
     const ctx = canvasContext;
     ctx.clearRect(0, 0, 1000, 800);
   };
+
   return (
     <div id="wheel">
       <canvas
         id="canvas"
-        width="1000"
-        height="800"
+        width="598"
+        height="700"
         style={{
           pointerEvents: isFinished && isOnlyOnce ? "none" : "auto",
         }}

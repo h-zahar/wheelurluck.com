@@ -5,7 +5,7 @@ interface SpinnerInfo {
   id: string;
   discountValue: number;
   discountType: string;
-  discountColor?: string;
+  discountColor: string;
 }
 interface CustomElements extends HTMLFormControlsCollection {
   discountValue: HTMLInputElement;
@@ -57,26 +57,6 @@ const SpinnerSettings = () => {
     setSpinnerInfo([...spinnernfo, data]);
   };
 
-  const segments = [
-    "better luck next time",
-    "won 70",
-    "won 10",
-    "better luck next time",
-    "won 2",
-    "won uber pass",
-    "better luck next time",
-    "won a voucher",
-  ];
-  const segColors = [
-    "#EE4040",
-    "#F0CF50",
-    "#815CD1",
-    "#3DA5E0",
-    "#34A24F",
-    "#F9AA1F",
-    "#EC3F3F",
-    "#FF9000",
-  ];
   const onFinished = (winner: string) => {
     console.log(winner);
   };
@@ -192,7 +172,9 @@ const SpinnerSettings = () => {
         </div>
       </div>
       <div style={{ marginTop: 50, textAlign: "center" }}>
-        <button style={{ background: "green", color: "white" }}>Spin!</button>
+        <button id="spin" style={{ background: "green", color: "white" }}>
+          Spin!
+        </button>
       </div>
       {/* <div>
         <Wheel
