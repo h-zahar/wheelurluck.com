@@ -163,6 +163,8 @@ const Wheel = ({
     ctx.font = "bold 1em " + fontFamily;
     ctx.fillStyle = contrastColor;
     ctx.textAlign = "center";
+    ctx.shadowColor = "black";
+    ctx.shadowBlur = 5;
     ctx.fillText(buttonText, centerX, centerY + 3);
     ctx.stroke();
 
