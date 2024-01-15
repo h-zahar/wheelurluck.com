@@ -170,8 +170,9 @@ const Wheel = ({
     ctx.beginPath();
     ctx.arc(centerX, centerY, 50, 0, PI2, false);
     ctx.closePath();
-    ctx.fillStyle =
-      segColors[segments.findIndex((segment) => segment === currentSegment)];
+    ctx.fillStyle = isStarted
+      ? segColors[segments.findIndex((segment) => segment === currentSegment)]
+      : "black";
     ctx.lineWidth = 10;
     ctx.strokeStyle = contrastColor;
     ctx.fill();
