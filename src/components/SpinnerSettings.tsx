@@ -87,6 +87,7 @@ const SpinnerSettings = ({
 
   // const [isWheelOpen, setIsWheelOpen] = useState(false);
   const [isOptInFormOpen, setIsOptInFormOpen] = useState(true);
+  const [spinTime, setSpinTime] = useState(5000);
 
   return (
     <div>
@@ -199,6 +200,23 @@ const SpinnerSettings = ({
         </div>
       </div>
       <div style={{ marginTop: 50, textAlign: "center" }}>
+        <div>
+          <label>Spin Time (ms)</label>
+          <input
+            style={{
+              padding: "8px",
+              marginBottom: "25px",
+              marginLeft: "12px",
+              borderRadius: "5px",
+            }}
+            type="number"
+            placeholder="Spin Time (Default: 5s)"
+            value={spinTime}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSpinTime(Number(e.target.value))
+            }
+          />
+        </div>
         <button
           style={{ background: "green", color: "white" }}
           onClick={() => {
@@ -217,6 +235,7 @@ const SpinnerSettings = ({
         setDiscountTable={setDiscountTable}
         currentCustomers={currentCustomers}
         setCurrentCustomers={setCurrentCustomers}
+        spinTime={spinTime}
       />
     </div>
   );
