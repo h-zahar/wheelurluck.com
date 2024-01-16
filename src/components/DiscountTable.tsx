@@ -68,9 +68,30 @@ const DiscountTable = ({
         {currentCustomers.map((customer, i) => {
           return (
             <>
-              <div>{customer.customerName}</div>
-              <div>{customer.customerEmail}</div>
-              <div>
+              <div
+                style={{
+                  background: "#cccccc",
+                  padding: "8px 20px",
+                  textAlign: "start",
+                }}
+              >
+                {customer.customerEmail}
+              </div>
+              <div
+                style={{
+                  background: "#efefef",
+                  padding: "8px 30px",
+                  textAlign: "start",
+                }}
+              >
+                {customer.customerName}
+              </div>
+              <div
+                style={{
+                  background: "#f8fff5",
+                  padding: "8px 20px",
+                }}
+              >
                 {" "}
                 {discountInfo.length === currentCustomers.length
                   ? discountInfo[i].discountValue +
