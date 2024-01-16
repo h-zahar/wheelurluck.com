@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction } from "react";
 
 interface DiscountInfo {
   id?: string;
@@ -18,9 +18,9 @@ interface CurrentCustomers {
 
 const DiscountTable = ({
   discountInfo,
-  setDiscountInfo,
-  currentCustomers,
-}: {
+}: // setDiscountInfo,
+// currentCustomers,
+{
   discountInfo: DiscountInfo[] | [];
   setDiscountInfo: React.Dispatch<SetStateAction<DiscountInfo[]>>;
   currentCustomers: CurrentCustomers[];
@@ -66,7 +66,7 @@ const DiscountTable = ({
           {"Discount"}
         </div>
 
-        {discountInfo.map((discount, i) => {
+        {discountInfo.map((discount) => {
           return (
             <>
               <div

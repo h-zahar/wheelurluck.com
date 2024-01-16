@@ -5,15 +5,15 @@ interface CurrentCustomers {
   customerName: string;
   customerEmail: string;
 }
-interface DiscountTable {
-  id?: string;
-  customerEmail?: string;
-  customerName?: string;
-  discountId: string;
-  discountValue: number;
-  discountType: string;
-  discountColor?: string;
-}
+// interface DiscountTable {
+//   id?: string;
+//   customerEmail?: string;
+//   customerName?: string;
+//   discountId: string;
+//   discountValue: number;
+//   discountType: string;
+//   discountColor?: string;
+// }
 
 const Wheel = ({
   // isOpen,
@@ -21,7 +21,7 @@ const Wheel = ({
   segments,
   segColors,
   winningSegment,
-  onFinished,
+  // onFinished,
   primaryColor = "black",
   contrastColor = "white",
   buttonText = "Spin",
@@ -30,10 +30,10 @@ const Wheel = ({
   upDuration = 100,
   downDuration = 1000,
   fontFamily = "proxima-nova",
-  isSubmitted,
+  // isSubmitted,
   currentCustomers,
-  setDiscountTable,
-  discountTable,
+  // setDiscountTable,
+  // discountTable,
   setWinner,
 }: {
   // isOpen: boolean;
@@ -50,10 +50,11 @@ const Wheel = ({
   upDuration: number;
   downDuration: number;
   fontFamily: string;
-  isSubmitted: boolean;
+  // isSubmitted: boolean;
   currentCustomers: CurrentCustomers[];
-  setDiscountTable: (discount: DiscountTable[]) => void;
-  discountTable: DiscountTable[];
+  // setDiscountTable: (discount: DiscountTable[]) => void;
+  // discountTable: DiscountTable[];
+  setWinner: (winner: { id: string; value: string }) => void;
 }) => {
   // if (!isOpen) return <></>;
   let currentSegment = "";
@@ -71,17 +72,18 @@ const Wheel = ({
   let frames = 0;
   const centerX = 300;
   const centerY = 300;
+
+  const wheelInit = () => {
+    initCanvas();
+    wheelDraw();
+  };
+
   useEffect(() => {
     wheelInit();
     setTimeout(() => {
       window.scrollTo(0, 1);
     }, 0);
   }, [segments.length, segColors.length, currentCustomers.length]);
-
-  const wheelInit = () => {
-    initCanvas();
-    wheelDraw();
-  };
 
   const initCanvas = () => {
     let canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -270,7 +272,7 @@ const Wheel = ({
         height="590"
         style={{
           pointerEvents: isFinished && isOnlyOnce ? "none" : "auto",
-          transform: `${!isSubmitted ? "translateX(-50%) " : ""}rotate(45deg)`,
+          transform: "translateX(-50%) rotate(45deg)",
           // border: "1px solid black",
           borderRadius: "50%",
         }}

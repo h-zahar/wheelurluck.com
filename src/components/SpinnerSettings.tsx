@@ -1,5 +1,4 @@
 import { SetStateAction, useState } from "react";
-import Wheel from "./Wheel";
 import OptInForm from "./OptInForm";
 
 interface SpinnerInfo {

@@ -1,5 +1,4 @@
 import { SetStateAction, useEffect, useState } from "react";
-import Icon from "../assets/images/wheel.png";
 import Wheel from "./Wheel";
 interface CustomElements extends HTMLFormControlsCollection {
   fullName: HTMLInputElement;
@@ -37,11 +36,11 @@ const OptInForm = ({
   isOpen,
   setIsOpen,
   spinnernfo,
-  setSpinnerInfo,
+  // setSpinnerInfo,
   discountTable,
   setDiscountTable,
   currentCustomers,
-  setCurrentCustomers,
+  // setCurrentCustomers,
   spinTime,
 }: {
   isOpen: boolean;
@@ -77,7 +76,7 @@ const OptInForm = ({
     ]);
     setDiscountTable(temp);
   };
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [isSubmitted, setIsSubmitted] = useState(false);
   const [winner, setWinner] = useState<
     { id: string; value: string } | Record<string, never>
   >({});
@@ -152,7 +151,7 @@ const OptInForm = ({
         <div
           id="fix-img-width"
           style={{
-            width: !isSubmitted ? "40%" : "100%",
+            width: "40%",
             minWidth: 200,
           }}
         >
@@ -176,10 +175,10 @@ const OptInForm = ({
             upDuration={(spinTime * 0.25) / spinnernfo.length}
             downDuration={(spinTime * 0.75) / spinnernfo.length}
             fontFamily="Arial"
-            isSubmitted={isSubmitted}
+            // isSubmitted={isSubmitted}
             currentCustomers={currentCustomers}
-            setDiscountTable={setDiscountTable}
-            discountTable={discountTable}
+            // setDiscountTable={setDiscountTable}
+            // discountTable={discountTable}
             setWinner={setWinner}
           />
         </div>
@@ -200,7 +199,7 @@ const OptInForm = ({
             marginRight: "40px",
             width: "60%",
             minWidth: 350,
-            display: !isSubmitted ? "block" : "none",
+            // display: !isSubmitted ? "block" : "none",
           }}
         >
           <div>

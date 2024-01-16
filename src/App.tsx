@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 import DiscountTable from "./components/DiscountTable";
-import OptInForm from "./components/OptInForm";
 import SpinnerSettings from "./components/SpinnerSettings";
 interface DiscountInfo {
   id?: string;
