@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Wheel from "./Wheel";
 import OptInForm from "./OptInForm";
 
@@ -41,9 +41,9 @@ const SpinnerSettings = ({
   setCurrentCustomers,
 }: {
   discountTable: DiscountInfo[] | [];
-  setDiscountTable: (discount: DiscountInfo[] | []) => void;
-  currentCustomers: CurrentCustomers[];
-  setCurrentCustomers: (customeers: CurrentCustomers[]) => void;
+  setDiscountTable: React.Dispatch<SetStateAction<DiscountInfo[]>>;
+  currentCustomers: CurrentCustomers[] | [];
+  setCurrentCustomers: (customeers: CurrentCustomers[] | []) => void;
 }) => {
   const [spinnernfo, setSpinnerInfo] = useState<SpinnerInfo[] | []>([
     {

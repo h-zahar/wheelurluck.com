@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Icon from "../assets/images/wheel.png";
 import Wheel from "./Wheel";
 interface CustomElements extends HTMLFormControlsCollection {
@@ -48,7 +48,7 @@ const OptInForm = ({
   spinnernfo: SpinnerInfo[];
   setSpinnerInfo: (spinnerInfo: SpinnerInfo[]) => void;
   discountTable: DiscountTable[];
-  setDiscountTable: (discount: DiscountTable[]) => void;
+  setDiscountTable: React.Dispatch<SetStateAction<DiscountTable[]>>;
   currentCustomers: CurrentCustomers[];
   setCurrentCustomers: (customers: CurrentCustomers[]) => void;
 }) => {
@@ -65,9 +65,23 @@ const OptInForm = ({
         discountType: winner.split(" ")[1],
       },
     ];
+    console.log([
+      ...discountTable,
+      {
+        discountId: new Date().getTime().toString(),
+        discountValue: Number(winner.split(" ")[0]),
+        discountType: winner.split(" ")[1],
+      },
+    ]);
     setDiscountTable(temp);
   };
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [winner, setWinner] = useState<
+    { id: string; value: string } | Record<string, never>
+  >({});
+  const [currentCustomer, setCurrentCustomer] = useState<
+    CurrentCustomers | Record<string, never>
+  >({});
   const onSubmit = (e: React.FormEvent<CustomForm>) => {
     e.preventDefault();
     const target = e.currentTarget.elements;
@@ -80,9 +94,24 @@ const OptInForm = ({
       customerName: target.fullName.value,
       customerEmail: target.email.value,
     };
-    setCurrentCustomers([...currentCustomers, data]);
-    setIsSubmitted(true);
+    setCurrentCustomer(data);
+    // setIsSubmitted(true);
+    document.getElementById("spin")?.click();
   };
+
+  useEffect(() => {
+    if (winner?.id) {
+      setDiscountTable([
+        ...discountTable,
+        {
+          ...currentCustomer,
+          discountId: new Date().getTime().toString(),
+          discountValue: Number(winner.value.split(" ")[0]),
+          discountType: winner.value.split(" ")[1],
+        },
+      ]);
+    }
+  }, [winner?.id]);
 
   if (!isOpen) return <></>;
   return (
@@ -112,7 +141,10 @@ const OptInForm = ({
       >
         <div
           id="fix-img-width"
-          style={{ width: !isSubmitted ? "40%" : "100%", minWidth: 200 }}
+          style={{
+            width: !isSubmitted ? "40%" : "100%",
+            minWidth: 200,
+          }}
         >
           <Wheel
             // isOpen={isWheelOpen}
@@ -138,6 +170,7 @@ const OptInForm = ({
             currentCustomers={currentCustomers}
             setDiscountTable={setDiscountTable}
             discountTable={discountTable}
+            setWinner={setWinner}
           />
         </div>
         <button

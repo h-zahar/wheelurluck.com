@@ -31,9 +31,10 @@ const Wheel = ({
   downDuration = 1000,
   fontFamily = "proxima-nova",
   isSubmitted,
-  currentCustomer,
+  currentCustomers,
   setDiscountTable,
   discountTable,
+  setWinner,
 }: {
   // isOpen: boolean;
   // setIsOpen: (isOpen: boolean) => void;
@@ -50,7 +51,7 @@ const Wheel = ({
   downDuration: number;
   fontFamily: string;
   isSubmitted: boolean;
-  currentCustomer: CurrentCustomers | [];
+  currentCustomers: CurrentCustomers[];
   setDiscountTable: (discount: DiscountTable[]) => void;
   discountTable: DiscountTable[];
 }) => {
@@ -75,7 +76,7 @@ const Wheel = ({
     setTimeout(() => {
       window.scrollTo(0, 1);
     }, 0);
-  }, [segments.length, segColors.length, currentCustomer?.id]);
+  }, [segments.length, segColors.length, currentCustomers.length]);
 
   const wheelInit = () => {
     initCanvas();
@@ -140,16 +141,15 @@ const Wheel = ({
     if (finished) {
       setFinished(true);
       // onFinished(currentSegment, currentCustomer);
-      const temp = [
-        ...discountTable,
-        {
-          // ...currentCustomer,
-          discountId: new Date().getTime().toString(),
-          discountValue: Number(currentSegment.split(" ")[0]),
-          discountType: currentSegment.split(" ")[1],
-        },
-      ];
-      setDiscountTable(temp);
+      // console.log("khkjhl", discountTable);
+      // const temp = [...discountTable];
+      // temp.push({
+      //   discountId: new Date().getTime().toString(),
+      //   discountValue: Number(currentSegment.split(" ")[0]),
+      //   discountType: currentSegment.split(" ")[1],
+      // });
+      // setDiscountTable(temp);
+      setWinner({ id: new Date().getTime().toString(), value: currentSegment });
       clearInterval(timerHandle);
       timerHandle = 0;
       angleDelta = 0;
@@ -270,7 +270,7 @@ const Wheel = ({
         height="590"
         style={{
           pointerEvents: isFinished && isOnlyOnce ? "none" : "auto",
-          transform: `${!isSubmitted ? "translateX(-55%) " : ""}rotate(45deg)`,
+          transform: `${!isSubmitted ? "translateX(-50%) " : ""}rotate(45deg)`,
           // border: "1px solid black",
           borderRadius: "50%",
         }}

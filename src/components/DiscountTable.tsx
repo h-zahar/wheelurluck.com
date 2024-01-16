@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 
 interface DiscountInfo {
   id?: string;
@@ -22,9 +22,10 @@ const DiscountTable = ({
   currentCustomers,
 }: {
   discountInfo: DiscountInfo[] | [];
-  setDiscountInfo: (discount: DiscountInfo[] | []) => void;
+  setDiscountInfo: React.Dispatch<SetStateAction<DiscountInfo[]>>;
   currentCustomers: CurrentCustomers[];
 }) => {
+  console.log(discountInfo);
   return (
     <div>
       <h2 style={{ fontWeight: "normal" }}>Email list</h2>
@@ -65,7 +66,7 @@ const DiscountTable = ({
           {"Discount"}
         </div>
 
-        {currentCustomers.map((customer, i) => {
+        {discountInfo.map((discount, i) => {
           return (
             <>
               <div
@@ -75,7 +76,7 @@ const DiscountTable = ({
                   textAlign: "start",
                 }}
               >
-                {customer.customerEmail}
+                {discount.customerEmail}
               </div>
               <div
                 style={{
@@ -84,7 +85,7 @@ const DiscountTable = ({
                   textAlign: "start",
                 }}
               >
-                {customer.customerName}
+                {discount.customerName}
               </div>
               <div
                 style={{
@@ -92,12 +93,7 @@ const DiscountTable = ({
                   padding: "8px 20px",
                 }}
               >
-                {" "}
-                {discountInfo.length === currentCustomers.length
-                  ? discountInfo[i].discountValue +
-                    " " +
-                    discountInfo[i].discountType
-                  : "Loading"}
+                {discount.discountValue + " " + discount.discountType}
               </div>
             </>
           );
