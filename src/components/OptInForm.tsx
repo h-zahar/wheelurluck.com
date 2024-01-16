@@ -135,7 +135,7 @@ const OptInForm = ({
         left: 0,
         height: "calc(100% - 35px)",
         minWidth: "30vw",
-        maxWidth: "55vw",
+        maxWidth: "65vw",
       }}
     >
       <div
@@ -146,6 +146,7 @@ const OptInForm = ({
           background: "rgb(45 133 250)",
           alignItems: "center",
           overflow: "hidden",
+          width: "100%",
         }}
       >
         <div
@@ -185,7 +186,7 @@ const OptInForm = ({
         <button
           id="spin"
           style={{
-            transform: "translateX(-21rem)",
+            transform: "translateX(-521rem)",
             background: "transparent",
             color: "white",
           }}
@@ -195,10 +196,10 @@ const OptInForm = ({
         <div
           id="fix-content-width"
           style={{
-            marginLeft: "80px",
+            // marginLeft: "80px",
             marginRight: "40px",
             width: "60%",
-            minWidth: 350,
+            minWidth: 450,
             // display: !isSubmitted ? "block" : "none",
           }}
         >
