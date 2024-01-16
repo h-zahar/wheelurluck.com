@@ -42,6 +42,7 @@ const OptInForm = ({
   setDiscountTable,
   currentCustomers,
   setCurrentCustomers,
+  spinTime,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -51,6 +52,7 @@ const OptInForm = ({
   setDiscountTable: React.Dispatch<SetStateAction<DiscountTable[]>>;
   currentCustomers: CurrentCustomers[];
   setCurrentCustomers: (customers: CurrentCustomers[]) => void;
+  spinTime: number;
 }) => {
   const onFinished = (
     winner: string,
@@ -94,6 +96,14 @@ const OptInForm = ({
       customerName: target.fullName.value,
       customerEmail: target.email.value,
     };
+    if (
+      discountTable.find(
+        (discount) => discount.customerEmail === data.customerEmail
+      )
+    )
+      return alert(
+        "You're already a registered user. Please use another email!"
+      );
     setCurrentCustomer(data);
     // setIsSubmitted(true);
     document.getElementById("spin")?.click();
@@ -163,8 +173,8 @@ const OptInForm = ({
             buttonText=""
             isOnlyOnce={false}
             size={250}
-            upDuration={100}
-            downDuration={1000}
+            upDuration={(spinTime * 0.25) / spinnernfo.length}
+            downDuration={(spinTime * 0.75) / spinnernfo.length}
             fontFamily="Arial"
             isSubmitted={isSubmitted}
             currentCustomers={currentCustomers}
@@ -215,6 +225,7 @@ const OptInForm = ({
               />
               <input
                 id="email"
+                type="email"
                 style={{
                   padding: "14px",
                   borderRadius: "5px",
