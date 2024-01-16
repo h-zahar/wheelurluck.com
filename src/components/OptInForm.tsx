@@ -11,7 +11,7 @@ interface CustomForm extends HTMLFormElement {
   readonly elements: CustomElements;
 }
 
-interface CurrentCustomer {
+interface CurrentCustomers {
   id: string;
   customerName: string;
   customerEmail: string;
@@ -24,9 +24,9 @@ interface SpinnerInfo {
   discountColor: string;
 }
 interface DiscountTable {
-  id: string;
-  customerEmail: string;
-  customerName: string;
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
   discountId: string;
   discountValue: number;
   discountType: string;
@@ -40,6 +40,8 @@ const OptInForm = ({
   setSpinnerInfo,
   discountTable,
   setDiscountTable,
+  currentCustomers,
+  setCurrentCustomers,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -47,19 +49,17 @@ const OptInForm = ({
   setSpinnerInfo: (spinnerInfo: SpinnerInfo[]) => void;
   discountTable: DiscountTable[];
   setDiscountTable: (discount: DiscountTable[]) => void;
+  currentCustomers: CurrentCustomers[];
+  setCurrentCustomers: (customers: CurrentCustomers[]) => void;
 }) => {
-  const [currentCustomer, setCurrentCustomer] = useState<
-    CurrentCustomer | Record<string, never>
-  >({});
   const onFinished = (
     winner: string,
-    currentCustomer: CurrentCustomer | Record<string, never>
+    currentCustomer: CurrentCustomers | []
   ) => {
     console.log(currentCustomer);
     const temp = [
       ...discountTable,
       {
-        ...currentCustomer,
         discountId: new Date().getTime().toString(),
         discountValue: Number(winner.split(" ")[0]),
         discountType: winner.split(" ")[1],
@@ -80,7 +80,7 @@ const OptInForm = ({
       customerName: target.fullName.value,
       customerEmail: target.email.value,
     };
-    setCurrentCustomer(data);
+    setCurrentCustomers([...currentCustomers, data]);
     setIsSubmitted(true);
   };
 
@@ -124,7 +124,7 @@ const OptInForm = ({
             winningSegment={null}
             onFinished={(
               winner: string,
-              currentCustomer: CurrentCustomer | Record<string, never>
+              currentCustomer: CurrentCustomers | []
             ) => onFinished(winner, currentCustomer)}
             primaryColor=""
             contrastColor="white"
@@ -135,7 +135,7 @@ const OptInForm = ({
             downDuration={1000}
             fontFamily="Arial"
             isSubmitted={isSubmitted}
-            currentCustomer={currentCustomer}
+            currentCustomers={currentCustomers}
             setDiscountTable={setDiscountTable}
             discountTable={discountTable}
           />

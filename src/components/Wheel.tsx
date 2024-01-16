@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
-interface CurrentCustomer {
+interface CurrentCustomers {
   id: string;
   customerName: string;
   customerEmail: string;
 }
 interface DiscountTable {
-  id: string;
-  customerEmail: string;
-  customerName: string;
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
   discountId: string;
   discountValue: number;
   discountType: string;
@@ -40,10 +40,7 @@ const Wheel = ({
   segments: string[];
   segColors: string[];
   winningSegment: string | null;
-  onFinished: (
-    winner: string,
-    currentCustomer: CurrentCustomer | Record<string, never>
-  ) => void;
+  onFinished: (winner: string, currentCustomer: CurrentCustomers | []) => void;
   primaryColor: string;
   contrastColor: string;
   buttonText: string;
@@ -53,7 +50,7 @@ const Wheel = ({
   downDuration: number;
   fontFamily: string;
   isSubmitted: boolean;
-  currentCustomer: CurrentCustomer | Record<string, never>;
+  currentCustomer: CurrentCustomers | [];
   setDiscountTable: (discount: DiscountTable[]) => void;
   discountTable: DiscountTable[];
 }) => {
@@ -146,7 +143,7 @@ const Wheel = ({
       const temp = [
         ...discountTable,
         {
-          ...currentCustomer,
+          // ...currentCustomer,
           discountId: new Date().getTime().toString(),
           discountValue: Number(currentSegment.split(" ")[0]),
           discountType: currentSegment.split(" ")[1],

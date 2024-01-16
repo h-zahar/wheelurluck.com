@@ -4,17 +4,26 @@ import DiscountTable from "./components/DiscountTable";
 import OptInForm from "./components/OptInForm";
 import SpinnerSettings from "./components/SpinnerSettings";
 interface DiscountInfo {
-  id: string;
-  customerEmail: string;
-  customerName: string;
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
   discountId: string;
   discountValue: number;
   discountType: string;
   discountColor?: string;
 }
 
+interface CurrentCustomers {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
+
 function App() {
   const [discountInfo, setDiscountInfo] = useState<DiscountInfo[] | []>([]);
+  const [currentCustomers, setCurrentCustomers] = useState<
+    CurrentCustomers[] | []
+  >([]);
 
   return (
     <>
@@ -29,10 +38,13 @@ function App() {
           <SpinnerSettings
             discountTable={discountInfo}
             setDiscountTable={setDiscountInfo}
+            currentCustomers={currentCustomers}
+            setCurrentCustomers={setCurrentCustomers}
           />
           <DiscountTable
             discountInfo={discountInfo}
             setDiscountInfo={setDiscountInfo}
+            currentCustomers={currentCustomers}
           />
         </div>
       </div>

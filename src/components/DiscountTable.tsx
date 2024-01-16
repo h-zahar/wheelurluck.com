@@ -1,21 +1,29 @@
 import { useState } from "react";
 
 interface DiscountInfo {
-  id: string;
-  customerEmail: string;
-  customerName: string;
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
   discountId: string;
   discountValue: number;
   discountType: string;
   discountColor?: string;
 }
 
+interface CurrentCustomers {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
+
 const DiscountTable = ({
   discountInfo,
   setDiscountInfo,
+  currentCustomers,
 }: {
-  discountInfo: DiscountInfo[];
-  setDiscountInfo: (discount: DiscountInfo[]) => void;
+  discountInfo: DiscountInfo[] | [];
+  setDiscountInfo: (discount: DiscountInfo[] | []) => void;
+  currentCustomers: CurrentCustomers[];
 }) => {
   return (
     <div>
@@ -57,42 +65,21 @@ const DiscountTable = ({
           {"Discount"}
         </div>
 
-        {discountInfo.map((discount) => {
-          return Object.keys(discount).map((d) => {
-            return (
-              (d === "customerName" ||
-                d === "customerEmail" ||
-                d === "discountValue") &&
-              (d !== "discountValue" ? (
-                <div
-                  style={
-                    d === "customerName"
-                      ? {
-                          background: "#efefef",
-                          padding: "8px 20px",
-                          textAlign: "start",
-                        }
-                      : {
-                          background: "#cccccc",
-                          padding: "8px 30px",
-                          textAlign: "start",
-                        }
-                  }
-                >
-                  {discount[d]}
-                </div>
-              ) : (
-                <div
-                  style={{
-                    background: "#f8fff5",
-                    padding: "8px 20px",
-                  }}
-                >
-                  {`${discount["discountValue"]} ${discount["discountType"]}`}
-                </div>
-              ))
-            );
-          });
+        {currentCustomers.map((customer, i) => {
+          return (
+            <>
+              <div>{customer.customerName}</div>
+              <div>{customer.customerEmail}</div>
+              <div>
+                {" "}
+                {discountInfo.length === currentCustomers.length
+                  ? discountInfo[i].discountValue +
+                    " " +
+                    discountInfo[i].discountType
+                  : "Loading"}
+              </div>
+            </>
+          );
         })}
       </div>
     </div>

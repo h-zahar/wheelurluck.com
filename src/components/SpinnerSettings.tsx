@@ -9,12 +9,6 @@ interface SpinnerInfo {
   discountColor: string;
 }
 
-interface CurrentCustomer {
-  id: string;
-  customerName: string;
-  customerEmail: string;
-}
-
 interface CustomElements extends HTMLFormControlsCollection {
   discountValue: HTMLInputElement;
   discountType: HTMLInputElement;
@@ -24,16 +18,16 @@ interface CustomForm extends HTMLFormElement {
   readonly elements: CustomElements;
 }
 
-interface CurrentCustomer {
+interface CurrentCustomers {
   id: string;
   customerName: string;
   customerEmail: string;
 }
 
 interface DiscountInfo {
-  id: string;
-  customerEmail: string;
-  customerName: string;
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
   discountId: string;
   discountValue: number;
   discountType: string;
@@ -43,9 +37,13 @@ interface DiscountInfo {
 const SpinnerSettings = ({
   discountTable,
   setDiscountTable,
+  currentCustomers,
+  setCurrentCustomers,
 }: {
-  discountTable: DiscountInfo[];
-  setDiscountTable: (discount: DiscountInfo[]) => void;
+  discountTable: DiscountInfo[] | [];
+  setDiscountTable: (discount: DiscountInfo[] | []) => void;
+  currentCustomers: CurrentCustomers[];
+  setCurrentCustomers: (customeers: CurrentCustomers[]) => void;
 }) => {
   const [spinnernfo, setSpinnerInfo] = useState<SpinnerInfo[] | []>([
     {
@@ -88,7 +86,7 @@ const SpinnerSettings = ({
   };
 
   // const [isWheelOpen, setIsWheelOpen] = useState(false);
-  const [isOptInFormOpen, setIsOptInFormOpen] = useState(false);
+  const [isOptInFormOpen, setIsOptInFormOpen] = useState(true);
 
   return (
     <div>
@@ -217,6 +215,8 @@ const SpinnerSettings = ({
         setSpinnerInfo={setSpinnerInfo}
         discountTable={discountTable}
         setDiscountTable={setDiscountTable}
+        currentCustomers={currentCustomers}
+        setCurrentCustomers={setCurrentCustomers}
       />
     </div>
   );
