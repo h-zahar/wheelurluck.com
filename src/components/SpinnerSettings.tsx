@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import OptInForm from "./OptInForm";
 
 interface SpinnerInfo {
   id: string;
   discountValue: number;
   discountType: string;
-  discountColor?: string;
+  discountColor: string;
 }
+
 interface CustomElements extends HTMLFormControlsCollection {
   discountValue: HTMLInputElement;
   discountType: HTMLInputElement;
@@ -15,7 +17,33 @@ interface CustomForm extends HTMLFormElement {
   readonly elements: CustomElements;
 }
 
-const SpinnerSettings = () => {
+interface CurrentCustomers {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
+
+interface DiscountInfo {
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
+  discountId: string;
+  discountValue: number;
+  discountType: string;
+  discountColor?: string;
+}
+
+const SpinnerSettings = ({
+  discountTable,
+  setDiscountTable,
+  currentCustomers,
+  setCurrentCustomers,
+}: {
+  discountTable: DiscountInfo[] | [];
+  setDiscountTable: React.Dispatch<SetStateAction<DiscountInfo[]>>;
+  currentCustomers: CurrentCustomers[] | [];
+  setCurrentCustomers: (customeers: CurrentCustomers[] | []) => void;
+}) => {
   const [spinnernfo, setSpinnerInfo] = useState<SpinnerInfo[] | []>([
     {
       id: "123",
@@ -55,6 +83,10 @@ const SpinnerSettings = () => {
     };
     setSpinnerInfo([...spinnernfo, data]);
   };
+
+  // const [isWheelOpen, setIsWheelOpen] = useState(false);
+  const [isOptInFormOpen, setIsOptInFormOpen] = useState(true);
+  const [spinTime, setSpinTime] = useState(5000);
 
   return (
     <div>
@@ -167,8 +199,43 @@ const SpinnerSettings = () => {
         </div>
       </div>
       <div style={{ marginTop: 50, textAlign: "center" }}>
-        <button style={{ background: "green", color: "white" }}>Spin!</button>
+        <div>
+          <label>Spin Time (ms)</label>
+          <input
+            style={{
+              padding: "8px",
+              marginBottom: "25px",
+              marginLeft: "12px",
+              borderRadius: "5px",
+            }}
+            type="number"
+            placeholder="Spin Time (Default: 5s)"
+            value={spinTime}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSpinTime(Number(e.target.value))
+            }
+          />
+        </div>
+        <button
+          style={{ background: "green", color: "white" }}
+          onClick={() => {
+            setIsOptInFormOpen(true);
+          }}
+        >
+          Spin!
+        </button>
       </div>
+      <OptInForm
+        isOpen={isOptInFormOpen}
+        setIsOpen={setIsOptInFormOpen}
+        spinnernfo={spinnernfo}
+        setSpinnerInfo={setSpinnerInfo}
+        discountTable={discountTable}
+        setDiscountTable={setDiscountTable}
+        currentCustomers={currentCustomers}
+        setCurrentCustomers={setCurrentCustomers}
+        spinTime={spinTime}
+      />
     </div>
   );
 };

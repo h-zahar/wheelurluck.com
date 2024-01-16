@@ -1,46 +1,31 @@
-import { useState } from "react";
+import React, { SetStateAction } from "react";
 
 interface DiscountInfo {
-  id: string;
-  customerEmail: string;
-  customerName: string;
+  id?: string;
+  customerEmail?: string;
+  customerName?: string;
   discountId: string;
   discountValue: number;
   discountType: string;
   discountColor?: string;
 }
 
-const DiscountTable = () => {
-  const [discountInfo, setDiscountInfo] = useState<DiscountInfo[] | []>([
-    {
-      id: "321",
-      customerEmail: "jdoe@jom.com",
-      customerName: "John Doe",
-      discountId: "123",
-      discountValue: 40,
-      discountType: "Fixed",
-      discountColor: "red",
-    },
-    {
-      id: "231",
-      customerEmail: "alexgood@gmail.com",
-      customerName: "Alex Good",
-      discountId: "132",
-      discountValue: 80,
-      discountType: "Fixed",
-      discountColor: "blue",
-    },
-    {
-      id: "131",
-      customerEmail: "john@hoiburg.com",
-      customerName: "Jonathan Hoiburg",
-      discountId: "142",
-      discountValue: 90,
-      discountType: "%",
-      discountColor: "green",
-    },
-  ]);
+interface CurrentCustomers {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+}
 
+const DiscountTable = ({
+  discountInfo,
+}: // setDiscountInfo,
+// currentCustomers,
+{
+  discountInfo: DiscountInfo[] | [];
+  setDiscountInfo: React.Dispatch<SetStateAction<DiscountInfo[]>>;
+  currentCustomers: CurrentCustomers[];
+}) => {
+  console.log(discountInfo);
   return (
     <div>
       <h2 style={{ fontWeight: "normal" }}>Email list</h2>
@@ -82,41 +67,36 @@ const DiscountTable = () => {
         </div>
 
         {discountInfo.map((discount) => {
-          return Object.keys(discount).map((d) => {
-            return (
-              (d === "customerName" ||
-                d === "customerEmail" ||
-                d === "discountValue") &&
-              (d !== "discountValue" ? (
-                <div
-                  style={
-                    d === "customerName"
-                      ? {
-                          background: "#efefef",
-                          padding: "8px 20px",
-                          textAlign: "start",
-                        }
-                      : {
-                          background: "#cccccc",
-                          padding: "8px 30px",
-                          textAlign: "start",
-                        }
-                  }
-                >
-                  {discount[d]}
-                </div>
-              ) : (
-                <div
-                  style={{
-                    background: "#f8fff5",
-                    padding: "8px 20px",
-                  }}
-                >
-                  {`${discount["discountValue"]} ${discount["discountType"]}`}
-                </div>
-              ))
-            );
-          });
+          return (
+            <>
+              <div
+                style={{
+                  background: "#cccccc",
+                  padding: "8px 20px",
+                  textAlign: "start",
+                }}
+              >
+                {discount.customerEmail}
+              </div>
+              <div
+                style={{
+                  background: "#efefef",
+                  padding: "8px 30px",
+                  textAlign: "start",
+                }}
+              >
+                {discount.customerName}
+              </div>
+              <div
+                style={{
+                  background: "#f8fff5",
+                  padding: "8px 20px",
+                }}
+              >
+                {discount.discountValue + " " + discount.discountType}
+              </div>
+            </>
+          );
         })}
       </div>
     </div>
