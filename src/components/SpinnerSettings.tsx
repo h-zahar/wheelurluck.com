@@ -67,7 +67,7 @@ const SpinnerSettings = ({
       id: "152",
       discountValue: 200,
       discountType: "Fixed",
-      discountColor: "yellow",
+      discountColor: "purple",
     },
   ]);
 
